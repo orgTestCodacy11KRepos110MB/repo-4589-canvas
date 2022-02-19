@@ -334,8 +334,8 @@ impl Context {
   }
 
   pub fn begin_path(&mut self) {
-    let mut new_sub_path = Path::new();
-    self.path.swap(&mut new_sub_path);
+    let new_sub_path = Path::new();
+    self.path.swap(new_sub_path);
   }
 
   pub fn clip(&mut self, path: Option<&mut Path>, fill_rule: FillType) {

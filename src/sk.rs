@@ -2349,8 +2349,9 @@ impl Path {
     unsafe { Path(ffi::skiac_path_create()) }
   }
 
-  pub fn swap(&mut self, other: &mut Path) {
-    unsafe { ffi::skiac_path_swap(self.0, other.0) }
+  pub fn swap(&mut self, other: Path) {
+    unsafe { ffi::skiac_path_swap(self.0, other.0) };
+    std::mem::forget(other);
   }
 
   pub fn from_svg_path(path: &str) -> Option<Path> {

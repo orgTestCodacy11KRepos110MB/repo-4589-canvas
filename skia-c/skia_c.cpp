@@ -717,6 +717,7 @@ extern "C"
   {
     auto other = reinterpret_cast<SkPath *>(other_path);
     PATH_CAST->swap(*other);
+    delete other;
   }
 
   void skiac_add_path(skiac_path *c_path, skiac_path *other_path, skiac_matrix *c_matrix)
