@@ -12,8 +12,10 @@ const test = ava as TestFn<{
 }>
 
 const fontIosevka = readFileSync(join(__dirname, 'fonts', 'iosevka-slab-regular.ttf'))
-
 console.assert(GlobalFonts.register(fontIosevka), 'Register Iosevka font failed')
+
+const fontSarasa = readFileSync(join(__dirname, 'fonts', 'sarasa-fixed-j-regular.ttf'))
+console.assert(GlobalFonts.register(fontSarasa, 'Sarasa Fixed J'), 'Register Sarasa font failed')
 
 test.beforeEach((t) => {
   const canvas = createCanvas(512, 512)
@@ -70,5 +72,19 @@ test('text-baseline', async (t) => {
   ctx.textBaseline = 'bottom'
   ctx.fillText('abcdef', 50, 50)
   ctx.fillText('abcdefg', 50, 50)
+  await snapshotImage(t)
+})
+
+test('text-align-with-space', async (t) => {
+  const { ctx } = t.context
+  ctx.strokeStyle = 'black'
+  ctx.lineWidth = 1
+  ctx.moveTo(100, 0)
+  ctx.lineTo(100, 512)
+  ctx.stroke()
+  ctx.font = '48px Sarasa Fixed J'
+  ctx.textAlign = 'center'
+  ctx.fillText('蒙娜丽莎', 100, 50)
+  ctx.fillText('兔 宝 宝', 100, 200)
   await snapshotImage(t)
 })
