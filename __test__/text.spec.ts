@@ -11,8 +11,10 @@ const test = ava as TestFn<{
   ctx: SKRSContext2D
 }>
 
-const fontIosevka = readFileSync(join(__dirname, 'fonts', 'iosevka-slab-regular.ttf'))
-console.assert(GlobalFonts.register(fontIosevka), 'Register Iosevka font failed')
+test.before(() => {
+  const fontIosevka = readFileSync(join(__dirname, 'fonts', 'iosevka-slab-regular.ttf'))
+  console.assert(GlobalFonts.register(fontIosevka), 'Register Iosevka font failed')
+})
 
 test.beforeEach((t) => {
   const canvas = createCanvas(512, 512)
